@@ -1,0 +1,30 @@
+<!-- partial -->
+<div class="flash-news-banner" *ngIf="breakingNews.length>0">
+  <div class="container">
+    <div class="d-lg-flex align-items-center justify-content-between">
+      <div class="d-flex justify-content-between align-items-center breaking-news bg-white">
+        <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center bg-danger py-2 text-white px-1 news"><span class="d-flex align-items-center">&nbsp;Breaking</span></div>
+        <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+
+          <a class="mr-2" routerLink="{{breaking.category_slug}}/{{breaking.tag_slug}}/{{breaking.slug}}" *ngFor="let breaking of breakingNews">{{breaking.title}}
+            </a>
+            <a href="#" >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut </a> <span class="dot"></span>
+
+        </marquee>
+
+    </div>
+      <!-- <div class="d-flex align-items-center">
+         <span class="badge badge-dark mr-3">Flash news</span>
+        <p class="mb-0">
+          Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s.
+        </p>
+
+      </div> -->
+      <!-- <div class="d-flex">
+        <span class="mr-3 text-danger">Wed, March 4, 2020</span>
+        <span class="text-danger">30°C,London</span>
+      </div> -->
+    </div>
+  </div>
+</div>

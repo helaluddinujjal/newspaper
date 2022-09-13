@@ -1,0 +1,112 @@
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Edit Tag</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="../../../">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="../../">Tags</a></li>
+          <li class="breadcrumb-item active">Edit Tag</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Edit Tag</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="cat_name">Category</label>
+                <select (change)="getSlug($event)" (blur)="getSlug($event)"  formControlName="cat_id"  class="form-control" id="cat_name" [ngClass]="{ 'is-invalid': submitted && f['cat_id'].errors}">
+                  <option  value="" [disabled]="true">Select Category</option>
+                  <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+                  </select>
+
+                <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                  <div *ngIf="f['name'].errors['required']">Category is required</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="cat_name">Tag Name</label>
+                <input (keyup)="getSlug($event)" (blur)="getSlug($event)" formControlName="name" type="text"
+                  class="form-control" id="cat_name" placeholder="Enter Tag Name"
+                  [ngClass]="{ 'is-invalid': submitted && f['name'].errors}">
+                <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                  <div *ngIf="f['name'].errors['required']">Name is required</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="cat_slug">Tag Slug</label>
+                <input (keyup)="getSlug($event)" (blur)="getSlug($event)" [(ngModel)]="slug" type="text"
+                  class="form-control" id="cat_slug" placeholder="Enter Tag Slug" formControlName="slug"
+                  [ngClass]="{ 'is-invalid': submitted && f['slug'].errors}">
+                <div *ngIf="submitted && f['slug'].errors" class="invalid-feedback">
+                  <div *ngIf="f['slug'].errors['required']">Slug is required</div>
+                </div>
+                <div *ngIf="checkSlug" class="text-danger">
+                  Slug already exist. Please try anather.
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-check-label" for="status">Menu Priority</label>
+                <input type="number" class="form-control" checked id="priority" formControlName="priority">
+              </div>
+              <div class="form-inline">
+                <div class="form-check ml-2">
+                  <input type="checkbox" class="form-check-input" checked id="status" formControlName="status">
+                  <label class="form-check-label" for="status">Status</label>
+                </div>
+              </div>
+
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <a class="btn btn-danger" routerLink="../../">Cancel</a>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+      <div class="col-md-4">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Activities</h3>
+          </div>
+
+          <div class="card-body">
+            <div *ngFor="let item of activities ">
+              <strong><i class="fa-solid fa-calendar-plus mr-1" *ngIf="item.action=='created'"></i><i class="fa-solid fa-pen-to-square mr-1" *ngIf="item.action=='updated'"></i> {{item.title}}</strong>
+              <p class="text-muted">
+                {{item.subject}}
+              </p>
+              <hr>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- /.row (main row) -->
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+

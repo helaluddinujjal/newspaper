@@ -1,0 +1,113 @@
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Settings</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="../../../">Home</a></li>
+          <li class="breadcrumb-item active">Settings</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Settings</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="exampleInputFile">Logo</label>
+                <div class="input-group">
+                  <div class="custom-file">
+                    <input type="file" (change)="CreateBase64String($event)" class="custom-file-input" id="exampleInputFile">
+                    <input type="hidden" class="custom-file-input" id="exampleInputFile" formControlName="logo" [(ngModel)]="cardImageBase64" #logo_img>
+                    <label class="custom-file-label" for="exampleInputFile">Choose Image</label>
+                  </div>
+                </div>
+                <div class="img-space mt-2">
+                  <ng-container *ngIf="logo_img.value;">
+                    <img [src]="logo_img.value" style="width: 100px;height:100px;" />
+                  </ng-container>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="footer_reserved_text">Footer Reserved Text</label>
+                <input formControlName="footer_reserved_text" type="text"
+                  class="form-control" id="footer_reserved_text" placeholder="Enter Footer Reserved Text"
+                  [ngClass]="{ 'is-invalid': submitted && f['footer_reserved_text'].errors}">
+                <div *ngIf="submitted && f['footer_reserved_text'].errors" class="invalid-feedback">
+                  <div *ngIf="f['footer_reserved_text'].errors['required']">Footer Reserved Text is required</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-check-label" for="status">Instagram Url</label>
+                <input type="url" class="form-control" checked id="instagram" formControlName="instagram">
+              </div>
+              <div class="form-group">
+                <label class="form-check-label" for="status">Facebook Url</label>
+                <input type="url" class="form-control" checked id="facebook" formControlName="facebook">
+              </div>
+              <div class="form-group">
+                <label class="form-check-label" for="status">Youtube Url</label>
+                <input type="url" class="form-control" checked id="youtube" formControlName="youtube">
+              </div>
+              <div class="form-group">
+                <label class="form-check-label" for="status">Linkedin Url</label>
+                <input type="url" class="form-control" checked id="linkedin" formControlName="linkedin">
+              </div>
+              <div class="form-group">
+                <label class="form-check-label" for="status">Twitter Url</label>
+                <input type="url" class="form-control" checked id="twitter" formControlName="twitter">
+              </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <a class="btn btn-danger" routerLink="../../">Cancel</a>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+      <div class="col-md-4">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Activities</h3>
+          </div>
+
+          <div class="card-body">
+            <div *ngFor="let item of activities ">
+              <strong><i class="fa-solid fa-calendar-plus mr-1" *ngIf="item.action=='created'"></i><i class="fa-solid fa-pen-to-square mr-1" *ngIf="item.action=='updated'"></i> {{item.title}}</strong>
+              <p class="text-muted">
+                {{item.subject}}
+              </p>
+              <hr>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- /.row (main row) -->
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+
